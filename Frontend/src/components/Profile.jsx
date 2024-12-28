@@ -1,24 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ShopContext } from '../context/ShopContext';
-import { useNavigate } from 'react-router-dom';
 
 const ProfileSection = () => {
-
-  const[token,setToken] = useState('');
- 
-  const navigate = useNavigate();
-
-  useEffect(()=>{
-    const tokenData = localStorage.getItem('token');
-    if(tokenData){
-      setToken(tokenData);
-    }
-    else{
-      navigate('/sign-up')
-    }
-  
-
-  },[token])
 
   return (
     <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8">
