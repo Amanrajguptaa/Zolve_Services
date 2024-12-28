@@ -6,7 +6,7 @@ const Dashboard = ({ token }) => {
 
   const getData = async () => {
     try {
-      const response = await axios.get('https://zolve-soln.onrender.com/api/product/list-product', {
+      const response = await axios.get('https://zolve-services.onrender.com/api/product/list-product', {
         headers: { token },
       });
       console.log(response.data.products);
