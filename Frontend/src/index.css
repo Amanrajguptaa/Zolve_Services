@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body,
+html {
+  height: 100%;
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+@font-face {
+  font-family: "Agrandir";
+  src: url("../public/Agrandir/Agrandir-GrandHeavy.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Horizon";
+  src: url("../public/horizon.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "AgrandirTextBold";
+  src: url("../public/Agrandir/Agrandir-TextBold.otf") format("opentype");
+  /* font-weight: bold; */
+  /* font-style: normal; */
+}
