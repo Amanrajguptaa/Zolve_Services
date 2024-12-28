@@ -12,7 +12,7 @@ const Login = () => {
     try {
       e.preventDefault();
       const response = await axios.post(
-        "https://zolve-soln.onrender.com/api/user/login",
+        "https://zolve-services.onrender.com/api/user/login",
         { email, password }
       );
       console.log(response.data);
