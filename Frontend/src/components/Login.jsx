@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 
 const Login = () => {
-  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,12 +11,12 @@ const Login = () => {
     try {
       e.preventDefault();
       const response = await axios.post(
-        "https://zolve-services.onrender.com/api/user/login",
+        "https://zolve-soln.onrender.com/api/user/login",
         { email, password }
       );
       console.log(response.data);
       localStorage.setItem("token", response.data.token);
-      navigate("/");
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
