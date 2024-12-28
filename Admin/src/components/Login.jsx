@@ -13,7 +13,7 @@ const Login = () => {
     const formSubmit =async(e)=>{
         try {
             e.preventDefault();
-            const response = await axios.post('https://zolve-soln.onrender.com/api/user/admin',{email,password})
+            const response = await axios.post('https://zolve-services.onrender.com/api/user/admin',{email,password})
             console.log(response.data);
             localStorage.setItem('token',response.data.token);
             navigate('/AddProduct')
