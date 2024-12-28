@@ -67,7 +67,7 @@ const ProductForm = ({ token }) => {
       image1 && formData.append("image1", image1);
 
       const response = await axios.post(
-        "https://zolve-soln.onrender.com/api/product/add-product",
+        "https://zolve-services.onrender.com/api/product/add-product",
         formData,
         { headers: { token } }
       );
