@@ -13,7 +13,7 @@ const ProductPage = () => {
   const getProduct = async () => {
     try {
       const response = await axios.get(
-        `https://zolve-soln.onrender.com/api/product/products/${productId}`
+        `https://zolve-services.onrender.com/api/product/products/${productId}`
       );
       setProduct(response.data.product);
       console.log(response.data.product);
