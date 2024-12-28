@@ -32,7 +32,7 @@ const ShopContextProvider = (props) => {
     if (token) {
       try {
         await axios.post(
-          "https://zolve-soln.onrender.com/api/cart/add-to-cart",
+          "https://zolve-services.onrender.com/api/cart/add-to-cart",
           { itemId, quantity },
           { headers: { token } }
         );
@@ -56,7 +56,7 @@ const ShopContextProvider = (props) => {
   const getUserCart = async (token) => {
     try {
       const response = await axios.post(
-        "https://zolve-soln.onrender.com/api/cart/get-cart",
+        "https://zolve-services.onrender.com/api/cart/get-cart",
         {},
         { headers: { token } }
       );
@@ -79,7 +79,7 @@ const ShopContextProvider = (props) => {
     if (token) {
       try {
         await axios.post(
-          "https://zolve-soln.onrender.com/api/cart/remove-item",
+          "https://zolve-services.onrender.com/api/cart/remove-item",
           { itemId },
           { headers: { token } }
         );
@@ -101,7 +101,7 @@ const ShopContextProvider = (props) => {
       if (token) {
         try {
           await axios.post(
-            "https://zolve-soln.onrender.com/api/cart/update-cart",
+            "https://zolve-services.onrender.com/api/cart/update-cart",
             { itemId, quantity: item.quantity },
             { headers: { token } }
           );
@@ -124,7 +124,7 @@ const ShopContextProvider = (props) => {
       if (token) {
         try {
           await axios.post(
-            "https://zolve-soln.onrender.com/api/cart/update-cart",
+            "https://zolve-services.onrender.com/api/cart/update-cart",
             { itemId, quantity: item.quantity },
             { headers: { token } }
           );
@@ -146,7 +146,7 @@ const ShopContextProvider = (props) => {
   const getProductsData = async () => {
     if (token) {
       try {
-        const response = await axios.get("https://zolve-soln.onrender.com/api/product/list-product");
+        const response = await axios.get("https://zolve-services.onrender.com/api/product/list-product");
         setProducts(response.data.products);
       } catch (error) {
         console.error("Error fetching products:", error);
