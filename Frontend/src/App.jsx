@@ -38,7 +38,6 @@ const App = () => {
     <div>
       <Header />
       <Routes>
-        {token ? (
           <>
             <Route path="/" element={<Home />} />
             <Route path="/product" element={<Products />} />
@@ -50,13 +49,6 @@ const App = () => {
             <Route path="/limited-edition" element={<LimitedEdition />} />
             <Route path="*" element={<Navigate to="/" />} />
           </>
-        ) : (
-          <>
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/login" element={<Login onLogin={handleLogin} />} />
-            <Route path="*" element={<Navigate to="/sign-up" />} />
-          </>
-        )}
       </Routes>
       <Footer />
     </div>
