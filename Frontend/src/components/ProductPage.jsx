@@ -35,7 +35,7 @@ const ProductPage = () => {
     addToCart(product, quantity);
     setIsAnimating(true);
 
-    setTimeout(() => setIsAnimating(false), 500);
+    setTimeout(() => setIsAnimating(false), 1000); // Reset animation after 1 second
   };
 
   if (!product) {
@@ -50,16 +50,14 @@ const ProductPage = () => {
             <img
               src={product.images}
               className="w-full h-[400px] bg-cover rounded-lg"
-              alt=""
+              alt="product"
             />
           </div>
         </div>
 
         <div className="flex-1">
           <h2 className="text-5xl font-bold">{product.name}</h2>
-          <p className="text-lg text-gray-500 mt-1">
-            1k+ Units Sold Last Month
-          </p>
+          <p className="text-lg text-gray-500 mt-1">1k+ Units Sold Last Month</p>
           <p className="text-gray-600 mt-4 border-b border-b-black pb-4">
             {product.description.split(" ").slice(0, 10).join(" ")}...
           </p>
