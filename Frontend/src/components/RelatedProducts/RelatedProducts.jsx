@@ -4,11 +4,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { ShopContext } from '../../context/ShopContext.jsx';
+import RelatedCard from '../Card/RelatedCard.jsx';
 
 
 const NextArrow = ({ onClick }) => (
   <button
-    className="absolute text-2xl top-1/2 -right-16 transform -translate-y-1/2 bg-gray-800 text-white p-2 md:p-3 lg:p-4 rounded-full shadow-lg hover:bg-gray-700 focus:outline-none z-10"
+    className="absolute text-2xl top-1/2 -right-5 md:-right-5 transform -translate-y-1/2 bg-[#188ab9] text-white p-2 md:p-3 lg:p-4 rounded-full shadow-lg focus:outline-none z-10"
     onClick={onClick}
   >
     &#8250;
@@ -17,7 +18,7 @@ const NextArrow = ({ onClick }) => (
 
 const PrevArrow = ({ onClick }) => (
   <button
-    className="absolute text-2xl top-1/2 -ml-16 transform -translate-y-1/2 bg-gray-800 text-white p-2 md:p-3 lg:p-4 rounded-full shadow-lg hover:bg-gray-700 focus:outline-none z-10"
+    className="absolute text-2xl top-1/2 -ml-6 md:-ml-12 transform -translate-y-1/2 bg-[#188ab9] text-white p-2 md:p-3 lg:p-4 rounded-full shadow-lg focus:outline-none z-10"
     onClick={onClick}
   >
     &#8249;
@@ -57,26 +58,15 @@ const RelatedProducts = ({id,category}) => {
   };
 
   return (
-    <div className="relative mx-4 mt-10 k">
-      <div className='hidden md:block'>
-      <Slider className=" mx-10 md:mx-10" {...settings}>
-        {displayItems.map((item, index) => (
-          <div key={index}>
-            <Card id={item._id} title={item.title} description={item.description} price={item.price} images={item.images} />
+    <div className="slider-container mx-auto md:px-8 lg:px-16 my-10">
+    <Slider className="" {...settings}>
+    {displayItems.map((item, index) => (
+          <div className='pl-2' key={index} onClick={() => window.scrollTo(0, 0)}>
+            <RelatedCard  id={item._id} name={item.name} description={item.description} price={item.price} images={item.images} />
             </div>
         ))}
         </Slider>
-        </div>
 
-
-      <div className="flex flex-col gap-10 md:hidden">
-        {displayItems.map((item, index) => (
-          <div key={index}>
-            <Card id={item._id} title={item.title} description={item.description} price={item.price} images={item.images} />
-            </div>
-        ))}
-      </div>
-      
     </div>
   );
 };
