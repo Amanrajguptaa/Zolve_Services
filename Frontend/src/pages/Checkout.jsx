@@ -1,29 +1,28 @@
-import React, { useContext, useState } from 'react';
-import { ShopContext } from '../context/ShopContext';
-import axios from 'axios';
+import React, { useContext, useState } from "react";
+import { ShopContext } from "../context/ShopContext";
+import axios from "axios";
 
 const Checkout = () => {
   const { token, cartItems, totalPrice } = useContext(ShopContext);
   const [address, setAddress] = useState({
-    street: '',
-    city: '',
-    state: '',
-    zip: '',
+    street: "",
+    city: "",
+    state: "",
+    zip: "",
   });
 
   const initPay = (order) => {
     const options = {
-      key: import.meta.env.VITE_RAZORPAY_KEY_ID, // Updated variable name
-      amount: order.amount, // Amount from the order
-      currency: 'INR',
-      name: 'Order Payment',
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID, 
+      amount: order.amount,
+      currency: "INR",
+      name: "Order Payment",
       receipt: order.receipt,
       handler: async (response) => {
-        console.log('Payment successful:', response);
-        // Further logic, e.g., save payment details to the server
+        console.log("Payment successful:", response);
       },
       theme: {
-        color: '#3399cc',
+        color: "#3399cc",
       },
     };
 
@@ -50,18 +49,18 @@ const Checkout = () => {
       };
 
       const response = await axios.post(
-        'https://zolve-soln.onrender.com/api/order/razorpay',
+        "https://zolve-soln.onrender.com/api/order/razorpay",
         orderData,
-        { headers: { token } } 
+        { headers: { token } }
       );
 
       if (response.data.success) {
         initPay(response.data.order);
       } else {
-        console.error('Failed to create order:', response.data.message);
+        console.error("Failed to create order:", response.data.message);
       }
     } catch (error) {
-      console.error('Error during checkout:', error);
+      console.error("Error during checkout:", error);
     }
   };
 
@@ -73,7 +72,10 @@ const Checkout = () => {
       </p>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700" htmlFor="street">
+          <label
+            className="block text-sm font-medium text-gray-700"
+            htmlFor="street"
+          >
             Street
           </label>
           <input
@@ -88,7 +90,10 @@ const Checkout = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700" htmlFor="city">
+          <label
+            className="block text-sm font-medium text-gray-700"
+            htmlFor="city"
+          >
             City
           </label>
           <input
@@ -103,7 +108,10 @@ const Checkout = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700" htmlFor="state">
+          <label
+            className="block text-sm font-medium text-gray-700"
+            htmlFor="state"
+          >
             State
           </label>
           <input
@@ -118,7 +126,10 @@ const Checkout = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700" htmlFor="zip">
+          <label
+            className="block text-sm font-medium text-gray-700"
+            htmlFor="zip"
+          >
             Zip Code
           </label>
           <input
