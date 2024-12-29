@@ -18,7 +18,8 @@ const SignUp = () => {
       );
       console.log(response.data);
       localStorage.setItem("token", response.data.token);
-      navigate("/login");
+      navigate("/");
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
