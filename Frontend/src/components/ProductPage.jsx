@@ -7,16 +7,16 @@ import { useParams } from "react-router-dom";
 const ProductPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [product, setProduct] = useState(null);
+  const [isAnimating, setIsAnimating] = useState(false);
   const { productId } = useParams();
   const { addToCart } = useContext(ShopContext);
 
   const getProduct = async () => {
     try {
       const response = await axios.get(
-        `https://zolve-services.onrender.com/api/product/products/${productId}`
+        `https://zolve-soln.onrender.com/api/product/products/${productId}`
       );
       setProduct(response.data.product);
-      console.log(response.data.product);
     } catch (error) {
       console.error(error);
     }
@@ -31,6 +31,13 @@ const ProductPage = () => {
     if (quantity > 1) setQuantity(quantity - 1);
   };
 
+  const handleAddToCart = () => {
+    addToCart(product, quantity);
+    setIsAnimating(true);
+
+    setTimeout(() => setIsAnimating(false), 500);
+  };
+
   if (!product) {
     return <div>Loading...</div>;
   }
@@ -40,9 +47,12 @@ const ProductPage = () => {
       <div className="flex flex-col md:flex-row justify-center items-center gap-8 border-b border-b-black pb-10">
         <div className="flex-1">
           <div className="bg-gray-200 rounded-lg w-full h-[400px] mb-4">
-            <img src={product.images} className="w-full h-[400px] bg-cover rounded-lg " alt="" />
+            <img
+              src={product.images}
+              className="w-full h-[400px] bg-cover rounded-lg"
+              alt=""
+            />
           </div>
-
         </div>
 
         <div className="flex-1">
@@ -81,8 +91,10 @@ const ProductPage = () => {
                 </button>
               </div>
               <button
-                onClick={() => addToCart(product._id, quantity)}
-                className="bg-black text-white px-6 py-2 rounded-lg"
+                onClick={handleAddToCart}
+                className={`bg-black text-white px-6 py-2 rounded-lg ${
+                  isAnimating ? "animate-bounce" : ""
+                }`}
               >
                 Add to Cart
               </button>
