@@ -14,13 +14,10 @@ const Header = () => {
           }`}
           onClick={() => toggleHamBurger()}
         ></div>
-        {/* <Link to={'/'}> */}
         <div className="left_ctr w-3/12 md:w-2/12 font-bold text-2xl flex items-center justify-center cursor-pointer font-horizon ">
           Zolve
         </div>
-        {/* </Link> */}
 
-        
         <div className="mid_ctr w-9/12 items-center justify-center gap-6 font-extralight hidden lg:flex cursor-pointer">
           <div>Categories</div>
           <div>Trending</div>
