@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const formSubmit = async (e) => {
     try {
       e.preventDefault();
+      setIsLoading(true); // Start animation on button click
       const response = await axios.post(
         "https://zolve-soln.onrender.com/api/user/login",
         { email, password }
@@ -18,6 +20,8 @@ const Login = () => {
       window.location.reload();
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false); // Stop animation after request is complete
     }
   };
 
@@ -53,14 +57,23 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-[#1a94c2] text-white py-3 rounded-lg font-medium"
+            disabled={isLoading} // Disable button when loading
+            className={`w-full py-3 rounded-lg font-medium transition-all duration-300 transform ${
+              isLoading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-[#1a94c2] text-white hover:bg-[#16879b] active:scale-95"
+            } ${isLoading ? "animate-pulse" : ""}`}
           >
-            Login{" "}
+            {isLoading ? (
+              <span>Logging...</span>
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
 
         <p className="mt-4 text-center text-gray-600">
-          Dont have an account?{" "}
+          Don't have an account?{" "}
           <Link
             to="/sign-up"
             className="text-[#1a94c2] font-medium hover:underline"
