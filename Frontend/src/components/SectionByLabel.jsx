@@ -7,7 +7,7 @@ import { ShopContext } from '../context/ShopContext.jsx';
 
 const NextArrow = ({ onClick }) => (
   <button
-    className="absolute text-2xl top-1/2 -right-5 transform -translate-y-1/2 bg-[#188ab9] text-white p-2 md:p-3 lg:p-4 rounded-full shadow-lg focus:outline-none z-10"
+    className="absolute text-2xl top-1/2 -right-0 md:-right-5 transform -translate-y-1/2 bg-[#188ab9] text-white p-2 md:p-3 lg:p-4 rounded-full shadow-lg focus:outline-none z-10"
     onClick={onClick}
   >
     &#8250;
@@ -16,22 +16,15 @@ const NextArrow = ({ onClick }) => (
 
 const PrevArrow = ({ onClick }) => (
   <button
-    className="absolute text-2xl top-1/2 -ml-12 transform -translate-y-1/2 bg-[#188ab9] text-white p-2 md:p-3 lg:p-4 rounded-full shadow-lg focus:outline-none z-10"
+    className="absolute text-2xl top-1/2 -ml-8 md:-ml-12 transform -translate-y-1/2 bg-[#188ab9] text-white p-2 md:p-3 lg:p-4 rounded-full shadow-lg focus:outline-none z-10"
     onClick={onClick}
   >
     &#8249;
   </button>
 );
 
-const getRandomProducts = (products, count) => {
-  const shuffled = [...products].sort(() => 0.5 - Math.random());
-  return shuffled.slice(0, count);
-};
-
 const SectionByLabel = ({ title, subTitle }) => {
   const { products } = useContext(ShopContext);
-
-  const randomProducts = getRandomProducts(products, 5); 
 
   const settings = {
     dots: false,
@@ -52,7 +45,7 @@ const SectionByLabel = ({ title, subTitle }) => {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 1,  
           slidesToScroll: 1,
         },
       },
@@ -60,31 +53,16 @@ const SectionByLabel = ({ title, subTitle }) => {
   };
 
   return (
-    <div>
-      <div className="relative mx-4 my-10">
-        <div className="text_ctr flex items-center justify-center flex-col text-center pb-6">
-          <div className="heading_ctr text-4xl font-semibold font-agrandir">{title}</div>
-          <div className="subheading_ctr text-lg mt-1">{subTitle}</div>
-        </div>
-        <div className="hidden md:block">
-          <Slider className="pl-10 mx-10 md:mx-24" {...settings}>
-            {randomProducts.map((product, index) => (
-              <div key={index}>
-                <Card
-                  id={product._id}
-                  title={product.name}
-                  description={product.description}
-                  price={product.price}
-                  images={product.images}
-                />
-              </div>
-            ))}
-          </Slider>
-        </div>
+    <div className="py-10">
+      <div className="text-center pb-6">
+        <div className="heading_ctr text-4xl font-semibold font-agrandir">{title}</div>
+        <div className="subheading_ctr text-lg mt-2 md:mt-1">{subTitle}</div>
+      </div>
 
-        <div className="flex flex-col gap-10 md:hidden">
-          {randomProducts.map((product, index) => (
-            <div key={index}>
+      <div className="slider-container mx-auto md:px-8 lg:px-16">
+        <Slider className="pl-8 md:pl-8 " {...settings}>
+          {products.slice(0, 6).map((product, index) => (
+            <div key={index} onClick={() => window.scrollTo(0, 0)}>
               <Card
                 id={product._id}
                 title={product.name}
@@ -94,7 +72,7 @@ const SectionByLabel = ({ title, subTitle }) => {
               />
             </div>
           ))}
-        </div>
+        </Slider>
       </div>
     </div>
   );
