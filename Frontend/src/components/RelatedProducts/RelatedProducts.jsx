@@ -62,7 +62,7 @@ const RelatedProducts = ({id,category}) => {
     <Slider className="" {...settings}>
     {displayItems.map((item, index) => (
           <div className='pl-2' key={index} onClick={() => window.scrollTo(0, 0)}>
-            <RelatedCard  id={item._id} name={item.name} description={item.description} price={item.price} images={item.images} />
+            <Card  id={item._id} title={item.name} description={item.description} price={item.price} images={item.images} />
             </div>
         ))}
         </Slider>
