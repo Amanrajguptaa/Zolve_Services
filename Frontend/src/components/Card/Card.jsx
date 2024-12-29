@@ -1,12 +1,29 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { ShopContext } from "../../context/ShopContext";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import './Card.css';
 
 const Card = ({ id, title, description, price, images }) => {
   const [isHeart, setIsHeart] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
+  const[product,setProduct] = useState(null);
+
+  const getProduct = async () => {
+    try {
+      const response = await axios.get(
+        `https://zolve-soln.onrender.com/api/product/products/${id}`
+      );
+      setProduct(response.data.product);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+   useEffect(() => {
+      getProduct();
+    }, [id]);
 
   const { addToCart } = useContext(ShopContext);
 
@@ -15,7 +32,7 @@ const Card = ({ id, title, description, price, images }) => {
   const handleAddToCart = (e) => {
     e.preventDefault(); 
     setIsAdded((prev) => !prev);
-    addToCart({ id, title, description, price, images }, 1);
+    addToCart(product, 1);
   };
 
   return (
