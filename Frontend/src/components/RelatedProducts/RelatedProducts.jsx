@@ -4,8 +4,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { ShopContext } from '../../context/ShopContext.jsx';
-import RelatedCard from '../Card/RelatedCard.jsx';
-
 
 const NextArrow = ({ onClick }) => (
   <button
@@ -25,32 +23,33 @@ const PrevArrow = ({ onClick }) => (
   </button>
 );
 
-const RelatedProducts = ({id,category}) => {
+const RelatedProducts = ({ id, category }) => {
+  const { products } = useContext(ShopContext);
 
-  const {products} = useContext(ShopContext)
-
-  const displayItems = products.filter(item => item.category === category && item._id !=id);
+  const displayItems = products.filter(
+    (item) => item.category === category && item._id !== id
+  );
 
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: displayItems.length > 3, // Disable infinite scroll if items are fewer than slidesToShow
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: Math.min(displayItems.length, 3), // Dynamically set slidesToShow
     slidesToScroll: 1,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     responsive: [
       {
-        breakpoint: 1024, 
+        breakpoint: 1024,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: Math.min(displayItems.length, 2), // Adjust for medium screens
           slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 768, 
+        breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: Math.min(displayItems.length, 1), // Adjust for small screens
           slidesToScroll: 1,
         },
       },
@@ -59,14 +58,23 @@ const RelatedProducts = ({id,category}) => {
 
   return (
     <div className="slider-container mx-auto md:px-8 lg:px-16 my-10">
-    <Slider className="" {...settings}>
-    {displayItems.map((item, index) => (
-          <div className='pl-2' key={index} onClick={() => window.scrollTo(0, 0)}>
-            <Card  id={item._id} title={item.name} description={item.description} price={item.price} images={item.images} />
+      {displayItems.length > 0 ? (
+        <Slider {...settings}>
+          {displayItems.map((item, index) => (
+            <div className="pl-2" key={index} onClick={() => window.scrollTo(0, 0)}>
+              <Card
+                id={item._id}
+                title={item.name}
+                description={item.description}
+                price={item.price}
+                images={item.images}
+              />
             </div>
-        ))}
+          ))}
         </Slider>
-
+      ) : (
+        <p className="text-center text-gray-500">No related products available.</p>
+      )}
     </div>
   );
 };
