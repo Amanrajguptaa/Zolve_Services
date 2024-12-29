@@ -1,111 +1,76 @@
 import React, { useContext, useState } from "react";
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import './Card.css';
 import { ShopContext } from "../../context/ShopContext";
 import { Link } from "react-router-dom";
+import './Card.css';
 
-const Card = ({id,title,description,price,images}) => {
+const Card = ({ id, title, description, price, images }) => {
   const [isHeart, setIsHeart] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
 
-  const {addToCart} = useContext(ShopContext);
+  const { addToCart } = useContext(ShopContext);
 
-  function toggleHeart() {
-    setIsHeart(!isHeart);
-  }
+  const toggleHeart = () => setIsHeart((prev) => !prev);
 
-  const handleAddToCart = () => {
-    setIsAdded(!isAdded);
+  const handleAddToCart = (e) => {
+    e.preventDefault(); 
+    setIsAdded((prev) => !prev);
+    addToCart({ id, title, description, price, images }, 1);
   };
 
   return (
-    <>
-    <Link to={`/product/${id}`}>
-    <div>
-      <div className="card p-4 rounded-lg hidden md:flex flex-col gap-3 bg-[#e0e0e0] h-[400px] w-[300px]">
+    <Link 
+      to={`/product/${id}`} 
+      className="transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+      aria-label={`View details for ${title}`}
+    >
+      <div className="card p-4 rounded-lg flex flex-col gap-3 bg-[#e0e0e0] h-[400px] w-[300px]">
         <div className="img_ctr bg-white rounded-lg h-[60%] relative">
-        <img className="rounded-lg h-[100%] w-[100%] bg-cover " src={images} alt="" />
-          <div
-            className={`bi bi-heart-fill border border-black px-[6px] py-1 w-fit rounded-full text-xs absolute right-2 top-2 cursor-pointer ${
-              isHeart ? "bg-[#188ab9] text-white heart-bounce" : "text-[#188ab9]"
+          <img
+            className="rounded-lg h-full w-full object-cover transition-all duration-300 transform"
+            src={images}
+            alt={title}
+          />
+          <button
+            className={`bi bi-heart-fill border border-black px-[6px] py-1 w-fit rounded-full text-xs absolute right-2 top-2 cursor-pointer focus:outline-none ${
+              isHeart
+                ? "bg-[#188ab9] text-white heart-bounce"
+                : "text-[#188ab9] hover:text-[#188ab9] transition-all"
             }`}
+            aria-label={isHeart ? "Remove from wishlist" : "Add to wishlist"}
             onClick={toggleHeart}
-          ></div>
+          ></button>
         </div>
 
-        <div className="desc_ctr flex items-center justify-between mt-4 mb-4">
-          <div className="right_ctr flex flex-col">
-            <div className="text-xs">{}</div>
-            <div className="font-semibold w-[80%] text-lg font-agrandirtb -mt-1">{title}</div>
+        <div className="desc_ctr flex  justify-between mt-4 md:mt-0 md:w-[90%]">
+          <div className="right_ctr flex flex-col ">
+            <h2 className="font-semibold text-xl text-[#333]">{title}</h2>
           </div>
           <div className="left_ctr flex flex-col items-end">
-            <div className="text-xs line-through">₹1500</div>
-            <div className="font-semibold text-lg -mt-1  font-agrandirtb">₹{price}</div>
+            <span className="text-xs line-through text-gray-500">₹1500</span>
+            <span className="font-semibold text-lg text-[#188ab9]">₹{price}</span>
           </div>
         </div>
 
-        <div
-          className={`btn_ctr flex items-center justify-center text-white rounded-full px-8 py-2  text-sm cursor-pointer ${
+        <button
+          className={`btn_ctr flex items-center justify-center text-white rounded-full px-8 py-2 text-sm cursor-pointer transition-all duration-300 transform focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#188ab9] ${
             isAdded
-              ? "bg-green-600"
-              : "bg-[#188ab9] hover:bg-[#317d9e] duration-200 ease-in-out"
+              ? "bg-green-600 hover:bg-green-700"
+              : "bg-[#188ab9] hover:bg-[#317d9e] ease-in-out"
           }`}
+          onClick={handleAddToCart}
+          aria-label={isAdded ? "Remove from cart" : "Add to cart"}
         >
           {isAdded ? (
-            <div className="flex items-center  gap-2 animate-fade-in">
+            <div className="flex items-center gap-2 animate-fade-in">
               <i className="bi bi-cart-check"></i> Added
             </div>
           ) : (
             "Add to Cart"
           )}
-        </div>
+        </button>
       </div>
-
-      <div className="mob_card p-4 rounded-lg flex gap-4 bg-[#e0e0e0] h-[175px] w-full md:hidden">
-        <div className="img_ctr bg-white rounded-lg h-full w-6/12 relative">
-          <div
-            className={`bi bi-heart-fill border border-black px-[6px] py-1 w-fit rounded-full text-xs absolute right-2 top-2 cursor-pointer ${
-              isHeart ? "bg-[#188ab9] text-white heart-bounce" : "text-[#188ab9]"
-            }`}
-            onClick={toggleHeart}
-          ></div>
-        </div>
-
-        <div className="w-6/12 flex flex-col justify-between">
-          <div className="desc_ctr flex flex-col gap-4 items-start justify-between">
-            <div className="right_ctr flex flex-col">
-              <div className="text-xs">Category Name</div>
-              <div className="font-semibold text-xl leading-5">
-                Product Name
-              </div>
-            </div>
-            <div className="left_ctr flex flex-col items-start">
-              <div className="text-xs line-through">₹1500</div>
-              <div className="font-semibold text-xl -mt-1">₹1,234</div>
-            </div>
-          </div>
-
-          <div
-            className={`btn_ctr flex items-center justify-center text-white rounded-full px-8 py-2 text-sm cursor-pointer ${
-              isAdded
-                ? "bg-green-600"
-                : "bg-[#188ab9] hover:bg-[#317d9e] duration-200 ease-in-out"
-            }`}
-            onClick={handleAddToCart}
-          >
-            {isAdded ? (
-              <div className="flex items-center gap-2 animate-fade-in">
-                <i className="bi bi-cart-check"></i> Added
-              </div>
-            ) : (
-              "Add to Cart"
-            )}
-          </div>
-        </div>
-      </div>
-      </div>
-      </Link>
-    </>
+    </Link>
   );
 };
 
