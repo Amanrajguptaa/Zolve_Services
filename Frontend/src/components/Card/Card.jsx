@@ -38,7 +38,7 @@ const Card = ({ id, title, description, price, images }) => {
   return (
     <Link 
       to={`/product/${id}`} 
-      className="transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+      className="transition-all duration-300 transform"
       aria-label={`View details for ${title}`}
     >
       <div className="card p-4 rounded-lg flex flex-col gap-3 bg-[#e0e0e0] h-[400px] w-[300px]">
